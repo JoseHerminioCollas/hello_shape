@@ -1,6 +1,6 @@
 from shapely import to_geojson, Point, Polygon, buffer
 from circleSVG import  circleSVG
-from polySVG import polySVG
+from lineStringSVG import lineStringSVG
 
 # set up geometry data
 poly1 = Polygon( [(0, 0), (100,0), (100,100), (0,100) ] )
@@ -17,7 +17,7 @@ points.append((Point(39, 39)))
 p = Polygon([(20,0),(110,0),(110,111),(0,110)])
 
 # write SVG tags
-poly = polySVG(p, 'blue')
+poly = lineStringSVG(p, 'blue')
 tag = ''
 for el in points:
  tag += circleSVG(9, el.x, el.y, 'red')

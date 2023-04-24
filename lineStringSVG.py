@@ -1,4 +1,4 @@
-def polySVG(polygon, color, strokeWeight='1'):
+def lineStringSVG(polygon, color, strokeWeight='1'):
  # make string for polygon from polygon coordinates
  strA = ''
  for x, y in polygon.coords:
