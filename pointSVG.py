@@ -1,3 +1,5 @@
- def pointSVG(point r=20, cx=30, cy=2, color='blue'):
- z = '<circle r="{0}" cx="{1}" cy="{2}" stroke-width="0.01mm" fill="{3}" stroke="{3}" />'.format(r, cx, cy, color)
+def pointSVG(point, color='blue', radius=1):
+ cx = point.x
+ cy = point.y
+ z = '<circle r="{3}" cx="{0}" cy="{1}" fill="{2}" stroke="none" />'.format(cx, cy, color, radius)
  return z
