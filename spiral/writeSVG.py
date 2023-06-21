@@ -1,4 +1,4 @@
-logo = """<g transform="translate(135,285) scale(0.4)" fill="black">
+logo = """<g transform="translate(135,285) scale(0.4)" fill="black" stroke="none">
 <path
          d="m 6.909225,12.189723 h 3.199798 l 3.274213,9.11157 3.265944,-9.11157 h 3.199798 l -4.572322,12.344441 h -3.795109 z"
          style="font-size:16.9333px;stroke-width:0.265"
