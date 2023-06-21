@@ -1,7 +1,7 @@
 def writeSVG(fileName, data):
     f = open(fileName, 'w')
     tagString = '<circle r="{0}" cx="{2}" cy="{1}" fill="none" stroke="black" stroke-width="0.1" />'
-    f.write('<svg width="380" height="380" fill="none" stroke="black" viewBox="0 0 380 380" transform="scale(4)">')
+    f.write('<svg width="80" height="80" fill="none" stroke="black" viewBox="0 0 80 80">')
     f.write('<circle r="40" cx="40" cy="40" stroke-width="0.1" />')
     for e in data:
         offset = 40
