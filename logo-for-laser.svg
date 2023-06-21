@@ -1,5 +1,29 @@
-logo = """<g transform="translate(135,285) scale(0.4)" fill="black">
-<path
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100mm"
+   height="50mm"
+   viewBox="0 0 100 50"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486, 2022-12-01)"
+   sodipodi:docname="logo-for-laser.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       aria-label="VARICITE"
+       id="text398"
+       style="font-weight:bold;font-size:3.88056px;-inkscape-font-specification:'sans-serif, Bold';stroke-width:0.264999">
+      <path
          d="m 6.909225,12.189723 h 3.199798 l 3.274213,9.11157 3.265944,-9.11157 h 3.199798 l -4.572322,12.344441 h -3.795109 z"
          style="font-size:16.9333px;stroke-width:0.265"
          id="path428" />
@@ -31,18 +55,6 @@ logo = """<g transform="translate(135,285) scale(0.4)" fill="black">
          d="m 83.059464,12.189723 h 8.590673 v 2.40605 h -5.407411 v 2.298563 h 5.084951 v 2.40605 h -5.084951 v 2.827728 h 5.589312 v 2.40605 h -8.772574 z"
          style="font-size:16.9333px;stroke-width:0.265"
          id="path442" />
-         </g>
-"""
-def writeSVG(fileName, data):
-    f = open(fileName, 'w')
-    tagString = '<circle r="{0}" cx="{2}mm" cy="{1}mm" fill="none" stroke="black" stroke-width="0.1mm" />'
-    f.write('<svg width="80mm" height="80mm" fill="none" stroke="black">')
-    f.write('<circle r="40mm" cx="40mm" cy="40mm" stroke-width="0.1mm" />')
-    for e in data:
-        offset = 40
-        x = e['x'] + offset
-        y = e['y'] + offset
-        circleSVG = tagString.format(e['circleRadius'], y, x)
-        f.write(circleSVG)
-    f.write(logo)
-    f.write('</svg>')
+    </g>
+  </g>
+</svg>
