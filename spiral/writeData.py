@@ -1,9 +1,9 @@
 import math
 
-def writeData(fileName, steps, circleRadius,angleIncrement):
+def writeData(fileName, steps, circleRadiusStart, spiralRadiusIncrement, angleIncrement):
     currAngle = 2
     spiralRadius = 2
-    spiralRadiusIncrement = 0.1
+    circleRadius = circleRadiusStart
     data = []
     i = 0
     while i <= steps:
@@ -13,6 +13,7 @@ def writeData(fileName, steps, circleRadius,angleIncrement):
         spiralRadius = spiralRadius + spiralRadiusIncrement
         d = {'circleRadius': circleRadius, 'x': x, 'y': y}
         data.append(d)
+        circleRadius += .01
         i += 1
 
     f = open(fileName, 'w')

@@ -9,5 +9,5 @@ def writeSVG(fileName, data):
         y = e['y'] + offset
         circleSVG = tagString.format(e['circleRadius'], y, x)
         f.write(circleSVG)
-    f.write('<text x="72mm" y="145mm" font-size="6" fill="black" stroke-width="0.01mm">VERICITE</text>')
+    f.write('<text x="37mm" y="78mm" font-size="6" fill="black" stroke-width="0.01mm">VERICITE</text>')
     f.write('</svg>')
