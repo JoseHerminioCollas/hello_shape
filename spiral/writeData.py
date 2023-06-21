@@ -13,7 +13,7 @@ def writeData(fileName,
     while i <= steps:
         x = math.cos(currAngle) * spiralRadius
         y = math.sin(currAngle) * spiralRadius
-        currAngle = currAngle + angleIncrement
+        currAngle += angleIncrement
         spiralRadius = spiralRadius + spiralRadiusIncrement
         d = {'circleRadius': circleRadius, 'x': x, 'y': y}
         data.append(d)
