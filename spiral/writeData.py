@@ -1,12 +1,9 @@
 import math
 
-def writeData(fileName, steps):
-    f = open(fileName, 'w')
+def writeData(fileName, steps, circleRadius,angleIncrement):
     currAngle = 0
-    angleIncrement = math.pi * 0.1
     spiralRadius = 3
     spiralRadiusIncrement = 0.2
-    circleRadius = 0.5
     offSet = 100
     data = []
     i = 0
@@ -19,5 +16,6 @@ def writeData(fileName, steps):
         data.append(d)
         i += 1
 
+    f = open(fileName, 'w')
     f.write(data.__str__())
     return data
