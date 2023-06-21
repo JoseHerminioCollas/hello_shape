@@ -7,7 +7,7 @@ coords = ((50, 0), (0, 100), (100, 100), (100, 0.), (0., 0.))
 polygon = Polygon(coords)
 svg = polygonSVG(polygon)
 
-coords = ((50, 50), (110, 150), (150, 150), (150, 50.), (50., 50.))
+ coords = ((50, 50), (110, 150), (150, 150), (150, 50.), (50., 50.))
 polygon = Polygon(coords)
 svgB = polygonSVG(polygon, 'peru')
 

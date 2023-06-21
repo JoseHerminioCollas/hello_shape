@@ -4,7 +4,7 @@ from writeSVG.writeSVG import writeSVG
 
 p = Point(100,20)
 p2 = Point(40, 50)
-contentStr = pointSVG(p,  'red', 3) + \
+contentStr = pointSVG(p,  'red', 33) + \
              pointSVG(p2, 'blue', 20) + \
              pointSVG(Point(140, 150), 'green', 12)
 writeSVG('../generated/point-example.svg', contentStr)
