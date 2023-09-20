@@ -1,5 +1,8 @@
 # Hello Shape
 
+## Objective
+
+Establish patterns for working with Shapely, GEO data, and SVG generation.
 
 ## install
 
