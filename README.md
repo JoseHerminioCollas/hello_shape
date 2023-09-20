@@ -1,5 +1,13 @@
 # Hello Shape
 
+
+## install
+
+pip install shapely
+
+## Related Links
+
+
 https://mapscaping.com/how-to-read-a-shapefile-using-python/
 
 https://shapely.readthedocs.io
