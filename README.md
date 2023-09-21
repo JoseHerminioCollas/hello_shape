@@ -4,9 +4,18 @@
 
 Establish patterns for working with Shapely, GEO data, and SVG generation.
 
-## install
+## Install
+
+These Python scripts use the library, Shapely.
+
+### Install shapely 
 
 pip install shapely
+
+### Install GDAL
+
+https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html
+
 
 ## Related Links
 
