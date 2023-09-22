@@ -17,6 +17,15 @@ pip install shapely
 https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html
 
 
+### Data
+
+#### Natural Earth
+
+https://www.naturalearthdata.com/
+
+https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/
+
+
 ## Related Links
 
 
