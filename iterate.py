@@ -23,8 +23,8 @@ for layer in data:
     # this is the one where featureindex may not start at 0
     layer.ResetReading()
     for feature in layer:
-        print('Feature ID:', feature.GetFID())
-        # get a metadata field with GetField('fieldname'/fieldindex)
-        print('Feature Metadata Keys:', feature.keys())
-        print('Feature Metadata Dict:', feature.items())
-        print('Feature Geometry:', feature.geometry())
+        # print('Feature ID:---', feature.GetFID())
+        # # get a metadata field with GetField('fieldname'/fieldindex)
+        # print('Feature Metadata Keys:', feature.keys())
+        # print('Feature Metadata Dict:', feature.items())
+        print('Feature Geometry:---', feature.geometry())  

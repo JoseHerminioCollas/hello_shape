@@ -21,10 +21,6 @@ https://gdal.org/
 https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg.html
 
 
-### Pandas
-
-https://pandas.pydata.org/
-
 ### Data Source
 
 #### Natural Earth
