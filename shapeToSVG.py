@@ -23,10 +23,16 @@ p=polygons(c)
 
 pSVG=p.svg()
 content=pSVG
-debugStr=debugStr+str(c)
-
+debugStr=debugStr+a
+openTag='<svg viewBox="-100 -100 200 200" width="500" height="500">'
+openG='<g transform-origin="center" transform="scale(1)">'
+bGTag='<rect width="200" height="200" fill="black" />'
 f=open('countries.svg', 'w')
-f.write('<svg width="100" height="100" fill="black" stroke="none"><g transform="translate(150,75) scale(2)">')
+# viewBox="-300 -200 600 400"
+#  transform="translate(150,75) scale(2)"
+f.write(openTag)
+f.write(bGTag)
+f.write(openG)
 f.write(content)
 f.write('</g></svg>')
 
