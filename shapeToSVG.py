@@ -1,3 +1,4 @@
+import re
 from osgeo import ogr
 import json
 from shapely import polygons, get_type_id
@@ -19,17 +20,19 @@ a=feature.ExportToJson()
 b=json.loads(a)
 # has only one entry because it is a polygon
 c=b['geometry']['coordinates'][0]
-p=polygons(c)
 
+p=polygons(c)
 pSVG=p.svg()
-content=pSVG
+p=re.compile(r'd="(.*)"')
+m=p.search(pSVG)
+pathValue=m.groups()[0]
+print(pathValue)
+content='<path d="{0}" fill="red" stroke="blue" />'.format(pathValue)
 debugStr=debugStr+a
-openTag='<svg viewBox="-100 -100 200 200" width="500" height="500">'
+openTag='<svg viewBox="-100 -100 100 100" width="200" height="200">'
+bGTag='<rect width="20" height="200" x="-20" y="-20" fill="red" />'
 openG='<g transform-origin="center" transform="scale(1)">'
-bGTag='<rect width="200" height="200" fill="black" />'
 f=open('countries.svg', 'w')
-# viewBox="-300 -200 600 400"
-#  transform="translate(150,75) scale(2)"
 f.write(openTag)
 f.write(bGTag)
 f.write(openG)
