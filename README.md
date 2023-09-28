@@ -4,6 +4,12 @@
 
 Establish patterns for working with Shapely, GEO data, and SVG generation.
 
+The script that converts Shape files to SVG is shapeToSVG.py
+
+command:
+
+python3 shapeToSVG.py
+
 ## Install
 
 These Python scripts uses several libraries.

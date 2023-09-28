@@ -41,12 +41,9 @@ def getFeatureCoords(feature):
 dataPath="/home/goat/projects/hello_shape/data/countries/ne_10m_admin_0_countries.shp"
 data=ogr.Open(dataPath)
 
-debugStr=''
-
 feature=data[0][3]
 featureCoords=getFeatureCoords(feature)
 shapelyPolygon=polygons(featureCoords)
 pathValue=getSVGPathD(shapelyPolygon)
 
 writeSVG(pathValue)
-writeDebug(debugStr)
