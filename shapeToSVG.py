@@ -46,4 +46,6 @@ featureCoords=getFeatureCoords(feature)
 shapelyPolygon=polygons(featureCoords)
 pathValue=getSVGPathD(shapelyPolygon)
 
-writeSVG(pathValue)
+def shapeToSVG():
+ writeSVG(pathValue)
+ return True
