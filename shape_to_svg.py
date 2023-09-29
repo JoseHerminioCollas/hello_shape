@@ -3,15 +3,16 @@ from shapely import polygons
 from get_feature_coords import get_feature_coords
 from get_svg_d_path import get_svg_d_path
 from write_svg import write_svg
+from get_svg_element import get_svg_element
 
-dataPath="/home/goat/projects/hello_shape/data/countries/ne_10m_admin_0_countries.shp"
-data=ogr.Open(dataPath)
-
-feature=data[0][3]
-featureCoords=get_feature_coords(feature)
-shapelyPolygon=polygons(featureCoords)
-pathValue=get_svg_d_path(shapelyPolygon)
-
-def shape_to_svg():
- write_svg(pathValue)
+def shape_to_svg(dataPath):
+#  send only data here?
+ data=ogr.Open(dataPath)
+ feature=data[0][3]
+ feature_coords=get_feature_coords(feature)
+ shapely_polygon=polygons(feature_coords)
+ d_path_value=get_svg_d_path(shapely_polygon)
+ content=get_svg_element(d_path_value)
+#  writeMode: T, F
+ write_svg(content)
  return True
