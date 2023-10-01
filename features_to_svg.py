@@ -10,10 +10,15 @@ def features_to_svg(shape_data):
   j=f.ExportToJson()
   k=json.loads(j)
   geo_type=k['geometry']['type']
+  print('geo type', geo_type, len(k['geometry']['coordinates']))
+  feature_coords=k['geometry']['coordinates']
+  fc=[]
+  if geo_type=='MultiPolygon':
+   fcs=feature_coords[0]
   if geo_type=='Polygon':
-   print('geo type', geo_type)
-   feature_coords=get_feature_coords(f)
-   shapely_polygon=polygons(feature_coords)
+   fcs=feature_coords
+  for fc in fcs:
+   shapely_polygon=polygons(fc)
    d_path_value=get_svg_d_path(shapely_polygon)
    content+='<g transform-origin="center" transform="scale(1)">'
    content+='<path d="{0}" fill="red" stroke="green" />'.format(d_path_value)
