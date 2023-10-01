@@ -1,6 +1,6 @@
 # from osgeo import ogr
 import pytest
-from shape_data_to_svg import shape_data_to_svg
+# from shape_data_to_svg import shape_data_to_svg
 
 def test_shape_data_to_svg():
  pytest.skip("TODO install osgeo library")
