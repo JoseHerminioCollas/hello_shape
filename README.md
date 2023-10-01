@@ -14,8 +14,6 @@ These Python scripts uses several libraries.
 
 https://pypi.org/project/shapely/
 
-pip install shapely
-
 ###  GDAL
 
 https://gdal.org/
@@ -24,11 +22,14 @@ https://mothergeo-py.readthedocs.io/en/latest/development/how-to/gdal-ubuntu-pkg
 
 https://pcjericks.github.io/py-gdalogr-cookbook/
 
-### py.test
+### pytest
 
 https://docs.pytest.org/en/7.4.x/
 
+
 ### Data Source
+
+The following are links to data sources used in this project.
 
 #### Natural Earth
 
@@ -37,8 +38,7 @@ https://www.naturalearthdata.com/
 https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/
 
 
-## Related Links
-
+## Other Related Links
 
 https://mapscaping.com/how-to-read-a-shapefile-using-python/
 
