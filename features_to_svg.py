@@ -11,32 +11,18 @@ def features_to_svg(shape_data):
   jse = f.ExportToJson(True)
   props=jse['properties']
   idd=jse['properties']['ISO_N3']
-  if idd=='840':
-#    print('usa', props)
-#    print(jse['geometry'])
-#   print(idd)
-#   for i in range(f.GetFieldCount()):
-#    print('xxxx', f.GetFieldDefnRef(i).GetName())
-#    print('xxxx', f.GetFieldDefnRef(i).GetType())
-#    print(f.GetGeomFieldCount())
-#   for i in range(f.GetGeomFieldCount()):
-#    print('a', f.GetGeomFieldDefnRef(i).GetName())
-#    print(f.GetGeomFieldDefn(i).GetType())
-# GetGeomFieldDefn(i).GetType()
-#   j=f.ExportToJson()
-#   k=json.loads(j)
+  if True:
    geo_type=jse['geometry']['type']
-#   print('geo type', geo_type, len(k['geometry']['coordinates']))
    feature_coords=jse['geometry']['coordinates']
-#   fc=[]
-   if geo_type=='MultiPolygon':
-    fcs=feature_coords
-    print('xxx', len(feature_coords))
-   if geo_type=='Polygon':
-    fcs=feature_coords
-   for fc in fcs:
+   for fc in feature_coords:
      print('333',len(fc))
-     shapely_polygon=polygons(fc[0])
+     if geo_type=='MultiPolygon':
+      fcs2=fc[0]
+      print('xxx', len(feature_coords))
+     if geo_type=='Polygon':
+      fcs2=fc
+     
+     shapely_polygon=polygons(fcs2)
      d_path_value=get_svg_d_path(shapely_polygon)
      content+='<g transform-origin="center" transform="scale(1)">'
      content+='<path d="{0}" fill="red" stroke="green" />'.format(d_path_value)
