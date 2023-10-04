@@ -1,5 +1,5 @@
 from osgeo import ogr
-from shapely import from_wkb, from_geojson
+from shapely import from_wkb, from_geojson, buffer
 import re
  
 def feature_to_svg(feature):
@@ -18,16 +18,23 @@ def get_svg_document(inner_contents):
     content+='</svg>'
     return content
 
+def shape_to_svg(shapely_object, color):
+    path_tag=re.sub(r'stroke="#\d+" ', '', shapely_object.svg(0.25, color, 1.0))
+    return path_tag
+
 data_path="/home/goat/projects/hello_shape/data/countries/ne_10m_admin_0_countries.shp"
 countries_data=ogr.Open(data_path)
 
 feature=countries_data[0][3]
 print(feature.GetField('ISO_N3'))
-feature_svg=feature_to_svg(feature)
-svg_document=get_svg_document(feature_svg)
+
+geojson = feature.ExportToJson()
+shape_one=from_geojson(geojson)
+shape_two=buffer(shape_one,2,1)
+
+shape_feature_svg=shape_to_svg(shape_one, 'red')
+shape_feature_svg_two=shape_to_svg(shape_two, 'blue')
+svg_document=get_svg_document(shape_feature_svg_two+shape_feature_svg)
 
 f=open('generated/feature.svg', 'w')
 f.write(svg_document)
-
-#   shp2=buffer(shp,2,1)
-#   color='rgba({},{},{},1.0)'.format(i,i,i)
