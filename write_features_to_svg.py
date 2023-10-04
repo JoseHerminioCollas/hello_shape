@@ -7,14 +7,19 @@ data_path="/home/goat/projects/hello_shape/data/countries/ne_10m_admin_0_countri
 countries_data=ogr.Open(data_path)
 
 countries_layer=countries_data[0]
-for feature in countries_layer:
+c=''
+for i in range(0,100):
+ feature=countries_layer[i]
+ name=feature.GetField('NAME')
+ print(name)
  geojson = feature.ExportToJson()
  shape_one=from_geojson(geojson)
  shape_two=buffer(shape_one,2,1)
  shape_feature_svg=shape_to_svg(shape_one, 'red')
  shape_feature_svg_two=shape_to_svg(shape_two, 'blue')
+ c+=shape_feature_svg_two+shape_feature_svg
 
-svg_document=get_svg_document(shape_feature_svg_two+shape_feature_svg)
+svg_document=get_svg_document(c)
 
 f=open('generated/features.svg', 'w')
 f.write(svg_document)
