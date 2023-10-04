@@ -1,22 +1,30 @@
 from osgeo import ogr
 from shapely import from_wkb, from_geojson, buffer
+from feature_to_svg import feature_to_svg
 from get_svg_document import get_svg_document
 from shape_to_svg import shape_to_svg
 
 data_path="/home/goat/projects/hello_shape/data/countries/ne_10m_admin_0_countries.shp"
 countries_data=ogr.Open(data_path)
+countries_layers=countries_data[0]
 
-feature=countries_data[0][3]
+# get features
+feature=countries_layers[3]
+feature2=countries_layers[1]
 
-geojson = feature.ExportToJson()
+# make shape objects from features
+geojson = feature2.ExportToJson()
 shape_one=from_geojson(geojson)
-shape_two=buffer(shape_one,2,1)
+shape_two=buffer(shape_one, 2,1)
 
-shape_feature_svg=shape_to_svg(shape_one, 'red')
-shape_feature_svg_two=shape_to_svg(shape_two, 'blue')
-svg_document=get_svg_document(shape_feature_svg_two+shape_feature_svg)
+# generate svg from features and shapes
+content=''
+content+=shape_to_svg(shape_two, 'blue')
+content+=shape_to_svg(shape_one, 'green')
+content+=feature_to_svg(feature)
+content+=feature_to_svg(feature2)
+svg_document=get_svg_document(content)
 
-f=open('generated/feature.svg', 'w')
+file_name='generated/feature.svg'
+f=open(file_name, 'w')
 f.write(svg_document)
-
-print('script complete:', feature.GetField('ISO_N3'))

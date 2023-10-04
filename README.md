@@ -51,3 +51,5 @@ https://www.learndatasci.com/tutorials/geospatial-data-python-geopandas-shapely/
 https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
 https://www.geopackage.org/
+
+ogr2ogr output.gpkg input.shp
