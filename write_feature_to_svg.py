@@ -22,8 +22,12 @@ data_path="/home/goat/projects/hello_shape/data/countries/ne_10m_admin_0_countri
 countries_data=ogr.Open(data_path)
 
 feature=countries_data[0][3]
+print(feature.GetField('ISO_N3'))
 feature_svg=feature_to_svg(feature)
 svg_document=get_svg_document(feature_svg)
 
 f=open('generated/feature.svg', 'w')
 f.write(svg_document)
+
+#   shp2=buffer(shp,2,1)
+#   color='rgba({},{},{},1.0)'.format(i,i,i)
