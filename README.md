@@ -52,4 +52,9 @@ https://docs.github.com/en/actions/automating-builds-and-tests/building-and-test
 
 https://www.geopackage.org/
 
+
+https://docs.qgis.org/
+
+https://libgeos.org/
+
 ogr2ogr output.gpkg input.shp
