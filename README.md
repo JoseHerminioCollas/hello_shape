@@ -58,3 +58,7 @@ https://docs.qgis.org/
 https://libgeos.org/
 
 ogr2ogr output.gpkg input.shp
+
+https://en.wikipedia.org/wiki/Geographic_coordinate_conversion#From_geodetic_to_ECEF_coordinates
+
+https://en.wikipedia.org/wiki/Geodetic_datum#World_Geodetic_System_1984_(WGS_84)
