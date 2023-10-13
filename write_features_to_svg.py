@@ -8,7 +8,7 @@ data_path='/home/goat/projects/hello_shape/data/Madrid-shp/shape/roads.shp'
 data_source=ogr.Open(data_path)
 layers=data_source[0]
 # OGR features to geo json Python data
-geo_data=get_geo_data(layers,10)
+geo_data=get_geo_data(layers,3000)
 # scale with a MultiLineString
 coords=[]
 for s in geo_data:
