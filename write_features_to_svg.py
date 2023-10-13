@@ -1,6 +1,5 @@
 from osgeo import ogr
 from shapely import from_geojson,buffer,affinity, MultiPolygon, Polygon, LineString, MultiLineString
-from shape_to_svg import shape_to_svg
 from get_svg_document import get_svg_document
 
 data_path='/home/goat/projects/hello_shape/data/Madrid-shp/shape/roads.shp'
@@ -8,7 +7,7 @@ data_source=ogr.Open(data_path)
 layers=data_source[0]
 
 # populate shape_objects with data from JSON call
-def get_shapes_json(layers, num):
+def get_geo_data(layers, num):
  # 250240
  items_num=800
  shapes_json=[]
@@ -20,31 +19,30 @@ def get_shapes_json(layers, num):
     print(name)
     shapes_json.append(geojson)
  return shapes_json
-shape_json=get_shapes_json(layers,10)
 
-# shape objects scaled
-# def get_scaled_MultiString():
-#  multi = MultiLineString(shape_json)
-#  scale_factor=700
-#  m_scaled=affinity.scale(multi,scale_factor,scale_factor)
-#  return m_scaled
+geo_data=get_geo_data(layers,10)
 
-doc='' 
 coords=[]
-for s in shape_json:
-#  print(s)
+for s in geo_data:
  coords.append(s['geometry']['coordinates'])
-multi = MultiLineString(coords)
+multi_line_string = MultiLineString(coords)
 scale_factor=700
-m_scaled=affinity.scale(multi,scale_factor,scale_factor)
-scaled_list=list(m_scaled.geoms)
-doc+=m_scaled.svg(0.25,'black', 1.0)
+mls_scaled=affinity.scale(multi_line_string,scale_factor,scale_factor)
+mls_scaled_list=list(mls_scaled.geoms)
 
 # loop through data and make shape objects, scale MultiLineString
-for j in range(0,len(shape_json)):
- ls=LineString(scaled_list[j])
- str='<text font-size="3" x="{}" y="{}" fill="black" stroke="none">{}</text>'
- doc+=str.format(ls.centroid.x,ls.centroid.y,shape_json[j]['properties']['name'])
+def get_text_svg(geo_data,shapes):
+ str=''
+ for i in range(0,len(geo_data)):
+  line_string=LineString(shapes[i])
+  s='<text font-size="3" x="{}" y="{}" fill="black" stroke="none">{}</text>'
+  str+=s.format(line_string.centroid.x,line_string.centroid.y,geo_data[i]['properties']['name'])
 
-f=open('generated/features_10_12_2023.svg', 'w')
+ return str
+
+doc='' 
+doc+=get_text_svg(geo_data,mls_scaled_list)
+doc+=mls_scaled.svg(0.25,'black', 1.0)
+
+f=open('generated/features_10_13_2023.svg', 'w')
 f.write(get_svg_document(doc))
