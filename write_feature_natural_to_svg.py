@@ -11,19 +11,27 @@ layers=data_source[0]
 # OGR features to geo json Python data
 geo_data=get_geo_data(layers,1000)
 
-shapely_objects=[]
-for i in range(0,len(geo_data)):
- el=from_geojson(json.dumps(geo_data[i]))
- el2=affinity.scale(el,1,1)
- shapely_objects.append(el2)
+shape_num=len(geo_data)
+# shapely_objects=[]
+# for i in range(0,shape_num):
+#  el=from_geojson(json.dumps(geo_data[i]))
+#  el2=affinity.scale(el,1,1)
+#  shapely_objects.append(el2)
 
-mp=MultiPolygon(shapely_objects)
+def b(k):
+ el=from_geojson(json.dumps(geo_data[k]))
+ el2=affinity.scale(el,1,1)
+ return el2
+ 
+a=[b(k) for k in range(shape_num)]
+
+mp=MultiPolygon(a)
 mp2=affinity.scale(mp,2000,2000)
 
 doc=''
 doc+=mp2.svg(1,'red',1.0)
 # write text
-for i in range(0,len(geo_data)):
+for i in range(0,shape_num):
  el2=mp2.geoms[i]
  doc+=get_text_svg_element(
   el2.centroid.x,
@@ -32,5 +40,5 @@ for i in range(0,len(geo_data)):
   4
   )
 
-f=open('generated/features_10_13_b_2023.svg', 'w')
+f=open('generated/features_10_13_c_2023.svg', 'w')
 f.write(get_svg_document(doc))
