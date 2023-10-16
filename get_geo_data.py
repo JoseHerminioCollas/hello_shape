@@ -5,6 +5,7 @@ def get_geo_data(layers, num):
   feature=layers[i]
   geojson=feature.ExportToJson(True)
   name=geojson['properties']['name']
+  # print(geojson['geometry'])
   if(str(name)!='None'):
    shapes_json.append(geojson)
  return shapes_json
