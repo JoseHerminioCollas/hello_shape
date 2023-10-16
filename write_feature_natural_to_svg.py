@@ -5,24 +5,25 @@ from get_svg_document import get_svg_document
 from get_geo_data import get_geo_data
 from get_text_svg_element import get_text_svg_element
 
-data_path='/home/goat/projects/hello_shape/data/map.osm'
+# data_path='/home/goat/projects/hello_shape/data/map.osm'
 # data_path='/home/goat/projects/hello_shape/data/geography_regions_elevation/ne_50m_geography_regions_elevation_points.shp'
-# data_path='/home/goat/projects/hello_shape/data/Madrid-shp/shape/natural.dbf'
+data_path='/home/goat/projects/hello_shape/data/Madrid-shp/shape/natural.shp'
 # osr.SpatialReference().SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
 # driver = ogr.GetDriverByName("ESRI Shapefile")
 # source = driver.Open(data_path,0)
 data_source=ogr.Open(data_path)
-for l in data_source:
- for f in l:
-  z=f.ExportToJson()
-  s=from_geojson(z)
-  x=ops.transform(lambda x, y: (y, x), s)
-  print(x)
-exit()
-layers=source[0]
+# for l in data_source:
+#  for f in l:
+#   z=f.ExportToJson()
+#   s=from_geojson(z)
+#   x=ops.transform(lambda x, y: (y, x), s)
+#   print(x)
+  # print(x)
+# exit()
+layers=data_source[0]
 # OGR features to geo json Python data
 geo_data=get_geo_data(layers,len(layers))
-shape_num=20
+shape_num=100
 # import osgeo
 
 # srs = SpatialReference()
@@ -31,16 +32,18 @@ shape_num=20
 
 def scale_shape(k):
  el=from_geojson(json.dumps(geo_data[k]))
- el2=affinity.scale(el,1,1)
- return el2
+ el1=ops.transform(lambda x, y: (y, x), el)
+ el2=affinity.scale(el1,1,1)
+ return el
 
 polygons=[scale_shape(k) for k in range(shape_num)]
 # x=transform(polygons, lambda x,: [y,x] )
 print(polygons)
-exit
+# exit
 
 mp=MultiPolygon(polygons)
-mp2=affinity.scale(mp,2000,2000)
+mp2=affinity.scale(mp,2000,-2000)
+print(mp2)
 
 doc=''
 doc+=mp2.svg(1,'red',1.0)
@@ -54,5 +57,5 @@ for i in range(0,shape_num):
   4
   )
 
-f=open('generated/features_10_13_c_2023.svg', 'w')
+f=open('generated/features_10_16_2023_c.svg', 'w')
 f.write(get_svg_document(doc))
