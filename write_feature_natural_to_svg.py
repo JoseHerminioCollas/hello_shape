@@ -7,14 +7,12 @@ from Features import Features
 data_path='/home/goat/projects/hello_shape/data/Madrid-shp/shape/natural.shp'
 data_source=ogr.Open(data_path)
 
-limit=500
+limit=50
 sql="SELECT * FROM natural where type='park' and name is not null limit {}".format(limit)
 layer=data_source.ExecuteSQL(sql)
 
 features=Features(layer)
-for p in features.data:
- print( p['properties'] )
-
+features.print_info()
 def get_svg_document(inner_contents):
  content = '<svg viewBox="-300 -300 600 600" width="600" height="600" stroke="green" stroke-width="1">'
  content += '<rect x="0" y="0" width="290" height="290" fill="green" />'
@@ -34,5 +32,5 @@ for i in range(0,len(features.data)):
  )
 svg_doc=get_svg_document(doc)
 
-j=open('generated/features_10_30_2023.svg', 'w')
+j=open('generated/features_10_31_2023.svg', 'w')
 j.write(svg_doc)

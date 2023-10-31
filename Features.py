@@ -21,3 +21,6 @@ class Features:
    self.item_scale,self.item_scale)
   self.scaled.append(scaled_poly)
   return  True
+ def print_info(self):
+  for p in self.data:
+   print(p['properties'])
