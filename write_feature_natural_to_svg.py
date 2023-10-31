@@ -1,8 +1,6 @@
 import json
 from osgeo import ogr
-from get_svg_document import get_svg_document
 from Features import Features
-# from get_svg import get_svg
 
 data_path='/home/goat/projects/hello_shape/data/Madrid-shp/shape/natural.shp'
 data_source=ogr.Open(data_path)
@@ -13,24 +11,30 @@ layer=data_source.ExecuteSQL(sql)
 
 features=Features(layer)
 features.print_info()
-def get_svg_document(inner_contents):
- content = '<svg viewBox="-300 -300 600 600" width="600" height="600" stroke="green" stroke-width="1">'
- content += inner_contents
- content += '</svg>'
- return content
-def get_svg_text_element(name,x,y,font_size=1,color='rgba(3,3,3,0.5)'):
- svg_text='<text font-size="{}" x="{}" y="{}" fill="{}" stroke="none">{}</text>'
- return svg_text.format(font_size,x,y,color,name)
-poly_layer= ''
-text_layer=''
+class SVGTag():
+ name='SVGTag'
+ def __init__(self):
+  self.doc=''
+ def render(self):
+  svg_doc = '<svg viewBox="-300 -300 600 600" width="600" height="600" stroke="green" stroke-width="1">'
+  svg_doc += self.doc
+  svg_doc += '</svg>'
+  return svg_doc
+ def set_text_element(self,name,x,y,font_size=1,color='rgba(3,3,113,0.5)'):
+  svg_text='<text font-size="{}" x="{}" y="{}" fill="{}" stroke="none">{}</text>'
+  self.doc+=svg_text.format(font_size,x,y,color,name)
+ def set_polygon(self,str):
+  self.doc+=str
+  return True
+
+svg_tag=SVGTag()
 for i in range(0,len(features.data)):
- poly_layer+=features.scaled_group.geoms[i].svg()
- text_layer+=get_svg_text_element(
+ svg_tag.set_polygon(features.scaled_group.geoms[i].svg())
+ svg_tag.set_text_element(
   features.data[i]['properties']['name'],
   features.scaled_group.geoms[i].centroid.x,features.scaled_group.geoms[i].centroid.y,
   7
  )
-svg_doc=get_svg_document(poly_layer+text_layer)
 
 j=open('generated/features_10_31_2023.svg', 'w')
-j.write(svg_doc)
+j.write(svg_tag.render())
