@@ -15,22 +15,22 @@ features=Features(layer)
 features.print_info()
 def get_svg_document(inner_contents):
  content = '<svg viewBox="-300 -300 600 600" width="600" height="600" stroke="green" stroke-width="1">'
- content += '<rect x="0" y="0" width="290" height="290" fill="green" />'
  content += inner_contents
  content += '</svg>'
  return content
 def get_svg_text_element(name,x,y,font_size=1,color='rgba(3,3,3,0.5)'):
  svg_text='<text font-size="{}" x="{}" y="{}" fill="{}" stroke="none">{}</text>'
  return svg_text.format(font_size,x,y,color,name)
-doc=''
+poly_layer= ''
+text_layer=''
 for i in range(0,len(features.data)):
- doc+=features.scaled_group.geoms[i].svg()
- doc+=get_svg_text_element(
+ poly_layer+=features.scaled_group.geoms[i].svg()
+ text_layer+=get_svg_text_element(
   features.data[i]['properties']['name'],
   features.scaled_group.geoms[i].centroid.x,features.scaled_group.geoms[i].centroid.y,
   7
  )
-svg_doc=get_svg_document(doc)
+svg_doc=get_svg_document(poly_layer+text_layer)
 
 j=open('generated/features_10_31_2023.svg', 'w')
 j.write(svg_doc)
