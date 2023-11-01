@@ -2,7 +2,7 @@ import json
 from shapely import from_geojson,affinity,MultiPolygon
 class Features:
  def __init__(self, layer):
-  self.item_scale = 3
+  self.item_scale = 1
   self.group_scale = 1000
   self.data = []
   self.polygons = []
@@ -12,7 +12,7 @@ class Features:
   self.scaled_group = affinity.scale(
    MultiPolygon(self.scaled),
    self.group_scale,
-   self.group_scale)
+   -self.group_scale)
  def add_feature(self, feature):
   geo_json=feature.ExportToJson(True)
   self.data.append(geo_json)
