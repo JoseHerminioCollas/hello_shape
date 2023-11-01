@@ -1,8 +1,29 @@
-# Hello Shape
+# Geospatial SVG
 
-## Objective
+## Description
 
-Establish patterns for working with Shapely, GEO data, and SVG generation.
+This repository attempts to establish strategies for generating SVG files representing Geospatial data.
+The technologies used will be primarily: 
+
+* GDAL
+* Shapely
+* Python
+
+GDAL for accessing data from various sources. Shapely for the creation and modification of geo data.
+Python is the scripting language that puts it all together and will be running the commands.
+
+The current strategy makes use of two custom Python classes:
+
+### Features
+A class to store data and Shapely objects created from the data.
+
+### SVGTag
+A class that is built out from an instance of the Features class. This class renders a final SVG document that is written to disk.
+
+### Scripts
+
+Scripts that run the commands to process the data and write the file. 
+Configuration is stored as a path to the data, and SQL command to retreive data and a Python function to do the work.
 
 ### Run tests with pytest
 
@@ -52,12 +73,9 @@ https://docs.github.com/en/actions/automating-builds-and-tests/building-and-test
 
 https://www.geopackage.org/
 
-
 https://docs.qgis.org/
 
 https://libgeos.org/
-
-ogr2ogr output.gpkg input.shp
 
 https://en.wikipedia.org/wiki/Geographic_coordinate_conversion#From_geodetic_to_ECEF_coordinates
 
