@@ -5,7 +5,7 @@ from SVGTag import SVGTag
 def madrid_parks(data_path,sql,destination_path):
  data_source=ogr.Open(data_path)
  layer=data_source.ExecuteSQL(sql)
- features=Features(layer)
+ features=Features(layer,3,1000)
  svg_tag=SVGTag()
  for i in range(0,len(features.data)):
   svg_tag.set_polygon(features.scaled_group.geoms[i].svg())

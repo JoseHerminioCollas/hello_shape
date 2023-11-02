@@ -25,6 +25,9 @@ A class that is built out from an instance of the Features class. This class ren
 Scripts that run the commands to process the data and write the file. 
 Configuration is stored as a path to the data, and SQL command to retreive data and a Python function to do the work.
 
+Each graphic is associated with a single object, path, sql, and a function definition. This FD can have the form of a title of the work in order to associate the specific script with a single graphic.
+
+
 ### Run tests with pytest
 
 ## Install

@@ -1,9 +1,13 @@
 import json
 from shapely import from_geojson,affinity,MultiPolygon
 class Features:
- def __init__(self, layer):
-  self.item_scale = 1
-  self.group_scale = 1000
+ def __init__(
+         self,
+         layer,
+         item_scale=1,
+         group_scale=1000):
+  self.item_scale = item_scale
+  self.group_scale = group_scale
   self.data = []
   self.polygons = []
   self.scaled = []
