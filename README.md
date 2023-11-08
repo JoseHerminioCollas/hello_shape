@@ -22,6 +22,12 @@ A class that is built out from an instance of the Features class. This class ren
 
 ### Scripts
 
+Command line script cand be found in the file:  ogr_command.sh
+
+run with
+
+ ./ogr_command.sh
+
 Scripts that run the commands to process the data and write the file. 
 Configuration is stored as a path to the data, and SQL command to retreive data and a Python function to do the work.
 
