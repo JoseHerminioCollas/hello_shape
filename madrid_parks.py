@@ -1,9 +1,21 @@
+import os
 from osgeo import ogr
 from Features import Features
 from SVGTag import SVGTag
-
-
-def madrid_parks(data_path, sql, destination_path):
+limit=200
+config =     {
+        'path':
+            'data/Madrid-shp/shape/natural.shp',
+        'sql':
+            "SELECT * FROM natural where type='park' and name is not null limit {}"
+            .format(3),
+        'destination': os.environ.get('FILE_DESTINATION'),
+    }
+def madrid_parks(
+        data_path=config['path'],
+          sql=config['sql'],
+          destination_path=config['destination']
+          ):
     data_source = ogr.Open(data_path)
     layer = data_source.ExecuteSQL(sql)
     features = Features(layer, 3, 1000)
@@ -17,3 +29,4 @@ def madrid_parks(data_path, sql, destination_path):
         )
     j = open(destination_path, 'w')
     j.write(svg_tag.render())
+madrid_parks(config['path'])
