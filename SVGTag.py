@@ -6,6 +6,7 @@ class SVGTag:
 
     def render(self):
         svg_doc = '<svg viewBox="-300 -300 600 600" width="600" height="600" stroke="green" stroke-width="1">'
+        svg_doc+='<style>path {fill: gold;stroke: maroon;stroke-width: 2px;}</style>'
         svg_doc += self.doc
         svg_doc += '</svg>'
         return svg_doc
