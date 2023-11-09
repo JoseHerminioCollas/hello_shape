@@ -29,7 +29,22 @@ run with
  ./ogr_command.sh
 
 Scripts that run the commands to process the data and write the file. 
-Configuration is stored as a path to the data, and SQL command to retreive data and a Python function to do the work.
+Configuration is stored as a path to the data and a destination to write the file.
+  DATA_PATH FILE_DESTINATION
+  These values can be stored in a file called:
+
+  env_vars
+
+  export DATA_PATH='your value here'
+  export FILE_DESTINATION='your value here'
+
+  then with the command 
+  
+   source env_var
+
+  these values can be read by the Python scripts.
+
+SQL commands retrieve data and a Python function does the work.
 
 Each graphic is associated with a single object, path, sql, and a function definition. This FD can have the form of a title of the work in order to associate the specific script with a single graphic.
 
@@ -38,7 +53,7 @@ Each graphic is associated with a single object, path, sql, and a function defin
 
 ## Install
 
-These Python scripts uses several libraries.
+## These Python scripts uses several libraries.
 
 ### shapely 
 
