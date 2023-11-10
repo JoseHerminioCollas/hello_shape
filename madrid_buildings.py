@@ -13,7 +13,7 @@ def madrid_buildings(data_path, sql, destination_path):
         svg_tag.set_text_element(
             features.data[i]['properties']['name'],
             features.scaled_group.geoms[i].centroid.x, features.scaled_group.geoms[i].centroid.y,
-            9
+            22
         )
     j = open(destination_path, 'w')
     j.write(svg_tag.render())

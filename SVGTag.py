@@ -11,7 +11,7 @@ class SVGTag:
         svg_doc += '</svg>'
         return svg_doc
 
-    def set_text_element(self, name, x, y, font_size=1, color='rgba(3,3,113,0.5)'):
+    def set_text_element(self, name, x, y, font_size=9, color='rgba(3,3,113,0.5)'):
         svg_text = '<text font-size="{}" x="{}" y="{}" fill="{}" stroke="none">{}</text>'
         self.doc += svg_text.format(font_size, x, y, color, name)
 
