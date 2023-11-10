@@ -3,19 +3,19 @@ from shapely import from_wkt, affinity
 from osgeo import ogr
 
 data_path = 'data/Madrid-shp/shape/natural.shp'
-destination_path = '__generated/madrid_parks_11_9.svg'
-# feature.GetGeometryRef()
-wkt = "POLYGON ((1162440.5712740074 672081.4332727483, 1162440.5712740074 647105.5431482664, 1195279.2416228633 647105.5431482664, 1195279.2416228633 672081.4332727483, 1162440.5712740074 672081.4332727483))"
-wkt2 = "POLYGON ((-3.25 40.170, -3.2 40.6 ))"
-wkt3 = "POLYGON ((-3.25 40.17, -3.2 40.17, -3.2 40.6, -3.25 40.6, -3.25 40.17))"
-poly = ogr.CreateGeometryFromWkt(wkt3)
-print ("Area = %d" % poly.GetArea())
+destination_path = '__generated/madrid_parks_11_10.svg'
+wkt_spatial_filter = "POLYGON ((-3.25 40.17, -3.2 40.17, -3.2 40.6, -3.25 40.6, -3.25 40.17))"
 sql = "SELECT * FROM natural where type='park' and name is not null limit {}".format(300)
 data_source = ogr.Open(data_path)
-layer = data_source.ExecuteSQL(sql,poly)
+layer = data_source.ExecuteSQL(
+    sql,
+    ogr.CreateGeometryFromWkt(wkt_spatial_filter))
 print(len(layer))
-svg_tag=madrid_parks(layer, destination_path)
-spat=affinity.scale(from_wkt(wkt3),1000,1000)
-svg_tag.set_polygon(spat.svg())
-j = open(destination_path, 'w')
-j.write(svg_tag.render())
+item_scale = 3
+group_scale = 1000
+svg_tag = madrid_parks(layer, destination_path, item_scale, group_scale)
+spatial_filter_svg = affinity.scale(from_wkt(wkt_spatial_filter), group_scale, group_scale)
+svg_tag.set_polygon(spatial_filter_svg.svg())
+
+file = open(destination_path, 'w')
+file.write(svg_tag.render())
