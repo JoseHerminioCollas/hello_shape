@@ -17,5 +17,4 @@ def madrid_parks(
             features.scaled_group.geoms[i].centroid.x, features.scaled_group.geoms[i].centroid.y,
             3
         )
-    j = open(destination_path, 'w')
-    j.write(svg_tag.render())
+    return svg_tag
