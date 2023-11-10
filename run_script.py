@@ -1,5 +1,5 @@
 from madrid_parks import madrid_parks
-import sys
+from shapely import from_wkt
 from osgeo import ogr
 
 data_path = 'data/Madrid-shp/shape/natural.shp'
@@ -12,9 +12,9 @@ poly = ogr.CreateGeometryFromWkt(wkt3)
 print ("Area = %d" % poly.GetArea())
 sql = "SELECT * FROM natural where type='park' and name is not null limit {}".format(300)
 data_source = ogr.Open(data_path)
-layer = data_source.ExecuteSQL(sql)
+layer = data_source.ExecuteSQL(sql,poly)
 print(len(layer))
 svg_tag=madrid_parks(layer, destination_path)
-# svg_tag.set_polygon()
+svg_tag.set_polygon(from_wkt(wkt3).svg())
 j = open(destination_path, 'w')
 j.write(svg_tag.render())
