@@ -1,5 +1,5 @@
 from madrid_parks import madrid_parks
-from shapely import from_wkt
+from shapely import from_wkt, affinity
 from osgeo import ogr
 
 data_path = 'data/Madrid-shp/shape/natural.shp'
@@ -15,6 +15,7 @@ data_source = ogr.Open(data_path)
 layer = data_source.ExecuteSQL(sql,poly)
 print(len(layer))
 svg_tag=madrid_parks(layer, destination_path)
-svg_tag.set_polygon(from_wkt(wkt3).svg())
+spat=affinity.scale(from_wkt(wkt3),1000,1000)
+svg_tag.set_polygon(spat.svg())
 j = open(destination_path, 'w')
 j.write(svg_tag.render())
