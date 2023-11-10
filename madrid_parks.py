@@ -6,7 +6,7 @@ def madrid_parks(
         destination_path,
         item_scale=3,
         group_scale=1000,
-        font_size=9
+        font_size=5
 ):
     features = Features(layer, item_scale, group_scale)
     svg_tag = SVGTag()
