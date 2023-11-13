@@ -17,7 +17,11 @@ class SVGTag:
     def set_text_element(self, name, x, y, font_size=9, color='rgba(3,3,113,0.5)'):
         svg_text = '<text   x="{}" y="{}" fill="{}" stroke="none" text-anchor="middle">{}</text>'
         self.doc += svg_text.format(x, y, color, name)
-
+# prepend_svg append_svg TODO
     def set_polygon(self, doc_str):
         self.doc += doc_str
         return True
+    def append(self,svg):
+        self.doc += svg
+    def prepend(self,svg):
+        self.doc = svg + self.doc
