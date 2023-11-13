@@ -3,16 +3,17 @@
 ## Description
 
 This repository attempts to establish strategies for generating SVG files representing Geospatial data.
-The technologies used will be primarily: 
+The technologies used are primarily: 
 
 * GDAL
 * Shapely
 * Python
+* Linux
 
 GDAL for accessing data from various sources. Shapely for the creation and modification of geo data.
 Python is the scripting language that puts it all together and will be running the commands.
 
-The current strategy makes use of two custom Python classes:
+The SVGs are generated with the use of a run script and two custom Python classes:
 
 ### Features
 A class to store data and Shapely objects created from the data.
@@ -22,13 +23,14 @@ A class that is built out from an instance of the Features class. This class ren
 
 ### Scripts
 
-Command line script cand be found in the file:  ogr_command.sh
-
-run with
-
- ./ogr_command.sh
+#### The run script
 
 Scripts that run the commands to process the data and write the file. 
+
+The run script can be thought of as a controller. See the file
+
+  run_script.py
+
 Configuration is stored as a path to the data and a destination to write the file.
   DATA_PATH FILE_DESTINATION
   These values can be stored in a file called:
@@ -45,6 +47,14 @@ Configuration is stored as a path to the data and a destination to write the fil
   these values can be read by the Python scripts.
 
 SQL commands retrieve data and a Python function does the work.
+
+### Use of the command line
+
+Command line script cand be found in the file:  ogr_command.sh
+
+run with
+
+ ./ogr_command.sh
 
 Each graphic is associated with a single object, path, sql, and a function definition. This FD can have the form of a title of the work in order to associate the specific script with a single graphic.
 
@@ -71,6 +81,11 @@ https://pcjericks.github.io/py-gdalogr-cookbook/
 
 https://docs.pytest.org/en/7.4.x/
 
+
+### View the SVG graphics.
+
+I have been useing primarily Linux for this project. 
+On Linux the applications InkScape and Image Viewer work well to view the SVG graphics.
 
 ### Data Source
 
