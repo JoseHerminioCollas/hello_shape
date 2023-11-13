@@ -1,5 +1,5 @@
 from SVGTag import SVGTag
-from madrid_parks import madrid_parks
+from layer_to_svg import layer_to_svg
 from shapely import from_wkt, to_wkt, affinity, box
 from osgeo import ogr
 
@@ -26,7 +26,7 @@ svg_tag.prepend(
     spat_box_scaled.svg()
 )
 svg_tag.append(
-    madrid_parks(layer, item_scale, group_scale)
+    layer_to_svg(layer, item_scale, group_scale)
 )
 print('SVG tag created: ', svg_tag)
 

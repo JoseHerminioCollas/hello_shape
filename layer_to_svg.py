@@ -1,7 +1,7 @@
 from Features import Features
 
 
-def madrid_parks(
+def layer_to_svg(
         layer,
         item_scale=3,
         group_scale=1000,
