@@ -2,9 +2,8 @@ class SVGTag:
     name = 'SVGTag'
     side=600
 
-    def __init__(self):
-        f = open('style.css', 'r', encoding='utf-8')
-        self.style=f.read()
+    def __init__(self, style):
+        self.style=style
         self.doc = ''
 
     def render(self):
@@ -23,3 +22,6 @@ class SVGTag:
 
     def prepend(self, svg):
         self.doc = svg + self.doc
+
+    def set_style(self, style):
+        self.style = style

@@ -3,11 +3,12 @@ from Features import Features
 
 def layer_to_svg(
         layer,
+        class_name='',
         item_scale=3,
         group_scale=1000,
 ):
     features = Features(layer, item_scale, group_scale)
-    svg = '<g class="parks">'
+    svg = '<g class="{}">'.format(class_name)
     for i in range(0, len(features.data)):
         svg += features.scaled_group.geoms[i].svg()
         svg += ('<text x="{}" y="{}">{}</text>'
