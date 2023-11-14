@@ -1,5 +1,5 @@
 import json
-from shapely import from_geojson, affinity, MultiPolygon
+from shapely import from_geojson, affinity, MultiPolygon, is_valid
 
 
 class Features:
@@ -22,6 +22,9 @@ class Features:
 
     def add_feature(self, feature):
         geo_json = feature.ExportToJson(True)
+        a=from_geojson(json.dumps(geo_json))
+        if(is_valid(a)==False):
+            return False
         self.data.append(geo_json)
         self.polygons.append(from_geojson(json.dumps(geo_json)))
         scaled_poly = affinity.scale(from_geojson(json.dumps(geo_json)),

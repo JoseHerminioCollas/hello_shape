@@ -3,14 +3,14 @@ from layer_to_svg import layer_to_svg
 from shapely import to_wkt, affinity, box
 from osgeo import ogr
 
-item_scale = 3
-group_scale = 2000
+item_scale = 4
+group_scale = 9000
 data_path = 'data/Madrid-shp/shape/natural.shp'
 destination_path = '__generated/madrid_parks_11_14.svg'
-spat_box = box(-3.8, 40.2, -3.3, 40.5)
+spat_box = box(-3.8, 40.3, -3.7, 40.4)
 spat_box_scaled = affinity.scale(spat_box, group_scale, group_scale)
 sql_park = ("SELECT * FROM natural where type='park' and name is not null limit {}"
-       .format(200))
+       .format(10000))
 sql_water = ("SELECT * FROM natural where type='water' and name is not null limit {}"
        .format(3000))
 
@@ -33,7 +33,7 @@ svg_tag.prepend(
     spat_box_scaled.svg()
 )
 svg_tag.append(
-    layer_to_svg(layer, 'parks', item_scale, group_scale)
+    layer_to_svg(layer, 'parks', 1, group_scale)
 )
 svg_tag.append(
     layer_to_svg(layer2, 'water', item_scale, group_scale)
