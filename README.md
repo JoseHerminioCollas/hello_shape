@@ -15,9 +15,10 @@ Python is the scripting language that puts it all together and will be running t
 
 A script that generates an SVG of parks and bodies of water in a part of Madrid.
 
-python3 generate_madrid_natural.py
+run:
 
-[madrid_parks_11_15.svg](madrid_parks_11_15.svg)
+  python3 generate_madrid_natural.py
+
 
 <img src="svg_archive/madrid_parks_11_15.svg" width="400" />
 
