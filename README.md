@@ -1,14 +1,26 @@
 # Geospatial SVG
 
+A project by Goatstone, Jose Collas
+[goatstone.com](https://goatstone.com)
+<img src="https://goatstone.com/images/goat-head-5-25-2022.svg" width="100">
+
 ## Description
 
 This repository attempts to establish strategies for generating SVG files representing Geospatial data.
-The technologies used are primarily: 
+The technologies used are primarily: GDAL, Shapely, Python and Linux
 
-* GDAL
-* Shapely
-* Python
-* Linux
+## Example
+
+A script that generates an SVG of parks and bodies of water in a part of Madrid.
+
+generate_madrid_natural.py
+
+[madrid_parks_11_15.svg](madrid_parks_11_15.svg)
+<img src="https://github.com/JoseHerminioCollas/hello_shape/blob/script_series/svg_archive/madrid_parks_11_15.svg" width="100" />
+
+<img src="/svg_archive/madrid_parks_11_15.svg" width="100" />
+
+
 
 GDAL for accessing data from various sources. Shapely for the creation and modification of geo data.
 Python is the scripting language that puts it all together and will be running the commands.
