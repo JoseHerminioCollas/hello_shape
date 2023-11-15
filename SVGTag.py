@@ -7,7 +7,7 @@ class SVGTag:
         self.doc = ''
 
     def render(self):
-        svg_doc = '<svg viewBox="-300 -300 {s} {s}" width="{s}" height="{s}">'.format(s=self.side)
+        svg_doc = '<svg xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" viewBox="-300 -300 {s} {s}" width="{s}" height="{s}">'.format(s=self.side)
         svg_doc += '<style>'+self.style+'</style>'
         svg_doc += self.doc
         svg_doc += '</svg>'

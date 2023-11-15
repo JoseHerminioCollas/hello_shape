@@ -7,23 +7,20 @@ A project by Goatstone, Jose Collas
 ## Description
 
 This repository attempts to establish strategies for generating SVG files representing Geospatial data.
-The technologies used are primarily: GDAL, Shapely, Python and Linux
+The technologies used are primarily: GDAL, Shapely, Python and Linux. 
+GDAL for accessing data from various sources. Shapely for the creation and modification of geo data.
+Python is the scripting language that puts it all together and will be running the commands.
 
 ## Example
 
 A script that generates an SVG of parks and bodies of water in a part of Madrid.
 
-generate_madrid_natural.py
+python3 generate_madrid_natural.py
 
 [madrid_parks_11_15.svg](madrid_parks_11_15.svg)
-<img src="https://github.com/JoseHerminioCollas/hello_shape/blob/script_series/svg_archive/madrid_parks_11_15.svg" width="100" />
 
-<img src="/svg_archive/madrid_parks_11_15.svg" width="100" />
+<img src="svg_archive/madrid_parks_11_15.svg" width="400" />
 
-
-
-GDAL for accessing data from various sources. Shapely for the creation and modification of geo data.
-Python is the scripting language that puts it all together and will be running the commands.
 
 The SVGs are generated with the use of a run script and two custom Python classes:
 
@@ -41,7 +38,8 @@ Scripts that run the commands to process the data and write the file.
 
 The run script can be thought of as a controller. See the file
 
-  run_script.py
+  generate_madrid_natural.py
+
 
 Configuration is stored as a path to the data and a destination to write the file.
   DATA_PATH FILE_DESTINATION
@@ -68,14 +66,12 @@ run with
 
  ./ogr_command.sh
 
-Each graphic is associated with a single object, path, sql, and a function definition. This FD can have the form of a title of the work in order to associate the specific script with a single graphic.
-
 
 ### Run tests with pytest
 
 ## Install
 
-## These Python scripts uses several libraries.
+## These Python scripts use several libraries.
 
 ### shapely 
 
@@ -96,8 +92,8 @@ https://docs.pytest.org/en/7.4.x/
 
 ### View the SVG graphics.
 
-I have been useing primarily Linux for this project. 
-On Linux the applications InkScape and Image Viewer work well to view the SVG graphics.
+I have been using primarily Linux for this project. 
+On Linux the applications InkScape and ImageViewer work well to view the SVG graphics.
 
 ### Data Source
 
