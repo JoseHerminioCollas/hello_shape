@@ -1,5 +1,5 @@
+from Features import Features
 from SVGTag import SVGTag
-from layer_to_svg import layer_to_svg
 from shapely import to_wkt, affinity, box
 from osgeo import ogr
 
@@ -13,24 +13,33 @@ def madrid_natural(item_scale,group_scale,data_path,styles):
 
     data_source = ogr.Open(data_path)
 
-    layer = data_source.ExecuteSQL(
+    park_layer = data_source.ExecuteSQL(
         sql_park,
         ogr.CreateGeometryFromWkt(to_wkt(spat_box))
     )
-    layer2 = data_source.ExecuteSQL(
+    water_layer = data_source.ExecuteSQL(
         sql_water,
         ogr.CreateGeometryFromWkt(to_wkt(spat_box))
     )
+
+    features_park = Features(park_layer, item_scale, group_scale)
+    svg_park = '<g class="{}">'.format('class_name')
+    for i in range(0, len(features_park.data)):
+        svg_park += features_park.scaled_group.geoms[i].svg()
+        svg_park += ('<text x="{}" y="{}">{}</text>'
+        .format(
+            features_park.scaled_group.geoms[i].centroid.x,
+            features_park.scaled_group.geoms[i].centroid.y,
+            features_park.data[i]['properties']['name']
+        ))
+    svg_park += '</g>'
 
     svg_tag = SVGTag(styles)
     svg_tag.prepend(
         spat_box_scaled.svg()
     )
     svg_tag.append(
-        layer_to_svg(layer, 'parks', 1, group_scale)
-    )
-    svg_tag.append(
-        layer_to_svg(layer2, 'water', item_scale, group_scale)
+        svg_park
     )
 
     return svg_tag.render()
