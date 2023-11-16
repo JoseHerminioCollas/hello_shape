@@ -35,7 +35,7 @@ g.parks text {
 }
 
 g.parks path {
-    fill: rgba(50, 255, 9, 1);
+    fill: rgb(19, 97, 3);
     stroke: rgba(4, 4, 4, 0.5);
     stroke-width: 0px;
 }
