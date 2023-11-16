@@ -23,23 +23,28 @@ def madrid_natural(item_scale,group_scale,data_path,styles):
     )
 
     features_park = Features(park_layer, item_scale, group_scale)
-    svg_park = '<g class="{}">'.format('class_name')
+    svg_park = '<g class="{}">'.format('parks')
     for i in range(0, len(features_park.data)):
         svg_park += features_park.scaled_group.geoms[i].svg()
-        svg_park += ('<text x="{}" y="{}">{}</text>'
+    svg_park += '</g>'
+
+    features_park = Features(water_layer, item_scale, group_scale)
+    svg_water = '<g class="{}">'.format('water')
+    for i in range(0, len(features_park.data)):
+        svg_water += features_park.scaled_group.geoms[i].svg()
+        svg_water += ('<text x="{}" y="{}">{}</text>'
         .format(
             features_park.scaled_group.geoms[i].centroid.x,
             features_park.scaled_group.geoms[i].centroid.y,
             features_park.data[i]['properties']['name']
         ))
-    svg_park += '</g>'
-
+    svg_water += '</g>'
+    # build the SVGTag
     svg_tag = SVGTag(styles)
     svg_tag.prepend(
         spat_box_scaled.svg()
     )
-    svg_tag.append(
-        svg_park
-    )
+    svg_tag.append(svg_park)
+    svg_tag.append(svg_water)
 
     return svg_tag.render()
