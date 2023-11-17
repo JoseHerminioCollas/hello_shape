@@ -1,29 +1,23 @@
 # Geospatial SVG
 
-A project by Goatstone, Jose Collas
-[goatstone.com](https://goatstone.com)
-<img src="https://goatstone.com/images/goat-head-5-25-2022.svg" width="100">
+<img src="art/geospatial_svg_logo.svg">
 
 ## Description
 
-This repository attempts to establish strategies for generating SVG files representing Geospatial data.
+Strategies for generating SVG graphics from Geospatial data.
 The technologies used are primarily: GDAL, Shapely, Python and Linux. 
-GDAL for accessing data from various sources. Shapely for the creation and modification of geo data.
-Python is the scripting language that puts it all together and will be running the commands.
+
+A project by Goatstone, Jose Collas
+[goatstone.com](https://goatstone.com)
 
 ## Example
 
-A script that generates an SVG of parks and bodies of water in a part of Madrid.
-
-run:
-
-  python3 generate_madrid_natural.py
-
+A script that generates an SVG of parks and bodies of water in a part of Madrid can produce the following SVG graphic.
 
 <img src="svg_archive/madrid_parks_11_15.svg" width="400" />
 
 
-The SVGs are generated with the use of a run script and two custom Python classes:
+The SVGs are generated with the use of a run script, funtion for generating the SVG and two custom Python classes, Features and SVGTag
 
 ### Features
 A class to store data and Shapely objects created from the data.
@@ -37,42 +31,39 @@ A class that is built out from an instance of the Features class. This class ren
 
 Scripts that run the commands to process the data and write the file. 
 
-The run script can be thought of as a controller. See the file
+The run script can be thought of as a controller. See the file:
 
-  generate_madrid_natural.py
+  run_script.py
+
+It runs a function with a name that reflects the kind of graphic it will produce.
+
+The function madrid_natural contains most of the script that will generate an SVG graphic of natural areas in Madrid.
 
 
-Configuration is stored as a path to the data and a destination to write the file.
-  DATA_PATH FILE_DESTINATION
-  These values can be stored in a file called:
+The Process of generating an SVG file is generally as follows:
 
-  env_vars
+#### Get the DataSource
 
-  export DATA_PATH='your value here'
-  export FILE_DESTINATION='your value here'
+#### Get the Layer
 
-  then with the command 
-  
-   source env_var
+#### Build Features objects
 
-  these values can be read by the Python scripts.
+#### Write to the SVGObject
 
-SQL commands retrieve data and a Python function does the work.
+#### Call the render method on the instance of SVGObject
 
-### Use of the command line
+#### Write the content of what has been returned by the render method to a file
 
-Command line script cand be found in the file:  ogr_command.sh
-
-run with
-
- ./ogr_command.sh
+Graphics can be generated anywhere in the system but saved graphics can be found in the svg_archive folder.
 
 
 ### Run tests with pytest
 
+  pytest
+
 ## Install
 
-## These Python scripts use several libraries.
+## Libraries Geospatial SVG uses:
 
 ### shapely 
 
