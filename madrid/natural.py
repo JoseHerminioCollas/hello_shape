@@ -3,7 +3,7 @@ from SVGTag import SVGTag
 from shapely import to_wkt, affinity, box
 from osgeo import ogr
 
-def madrid_natural(item_scale,group_scale,data_path,styles):
+def natural(item_scale,group_scale,data_path,styles):
     spat_box = box(-3.76, 40.36, -3.72, 40.4)
     spat_box_scaled = affinity.scale(spat_box, group_scale, group_scale)
     sql_park = ("SELECT * FROM natural where type='park' and name is not null limit {}"
