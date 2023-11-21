@@ -10,9 +10,9 @@ def natural(item_scale,group_scale,data_path,styles):
         .format(10000))
     sql_water = ("SELECT * FROM natural where type='water' and name is not null limit {}"
         .format(3000))
-
+    # get the data source
     data_source = ogr.Open(data_path)
-
+    # get the one or more layers
     park_layer = data_source.ExecuteSQL(
         sql_park,
         ogr.CreateGeometryFromWkt(to_wkt(spat_box))
@@ -21,30 +21,13 @@ def natural(item_scale,group_scale,data_path,styles):
         sql_water,
         ogr.CreateGeometryFromWkt(to_wkt(spat_box))
     )
-
+    # build out the one or more features
     features_park = Features(park_layer, item_scale, group_scale)
-    svg_park = '<g class="{}">'.format('parks')
-    for i in range(0, len(features_park.data)):
-        svg_park += features_park.scaled_group.geoms[i].svg()
-    svg_park += '</g>'
-
-    features_park = Features(water_layer, item_scale, group_scale)
-    svg_water = '<g class="{}">'.format('water')
-    for i in range(0, len(features_park.data)):
-        svg_water += features_park.scaled_group.geoms[i].svg()
-        svg_water += ('<text x="{}" y="{}">{}</text>'
-        .format(
-            features_park.scaled_group.geoms[i].centroid.x,
-            features_park.scaled_group.geoms[i].centroid.y,
-            features_park.data[i]['properties']['name']
-        ))
-    svg_water += '</g>'
-    # build the SVGTag
+    features_water = Features(water_layer, item_scale, group_scale)
+    # build the one SVGTag and return its output
     svg_tag = SVGTag(styles)
-    svg_tag.prepend(
-        spat_box_scaled.svg()
-    )
-    svg_tag.append(svg_park)
-    svg_tag.append(svg_water)
+    svg_tag.append_shapes(features_water.scaled_group.geoms, features_water.data, 'water', True)
+    svg_tag.append_shapes(features_park.scaled_group.geoms, features_park.data, 'parks', True)
+    svg_tag.prepend(spat_box_scaled.svg())
 
     return svg_tag.render()
