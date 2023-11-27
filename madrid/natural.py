@@ -1,6 +1,6 @@
 from Features import Features
 from SVGTag import SVGTag
-from shapely import to_wkt, affinity, box
+from shapely import to_wkt, affinity, box, Point
 from osgeo import ogr
 
 def natural(item_scale,group_scale,data_path,styles,spat_zoom=0,center=None):
@@ -13,12 +13,17 @@ def natural(item_scale,group_scale,data_path,styles,spat_zoom=0,center=None):
     # a=data_source.GetLayerCount()
     b=data_source.GetLayer()
     c=b.GetExtent()
-    # print('a', b, c)
+    # -4.0699641, -3.2300143, 40.170042, 40.6499669
+    p=Point(-4.01,40.1)
+    q=p.buffer(100)
+    r=q.bounds
+    print('a', p,  r)
+    # s=box(r[0],r[2],r[1],r[3])
+    s=box(r[0],r[1],r[2],r[3])
     spat_box2 = box(c[0], c[2], c[1], c[3])
     spat_box2_scaled=affinity.scale(spat_box2, group_scale,group_scale)
     spat_box3=affinity.scale(spat_box2_scaled, -0.5,-0.5)
     spat_box4=affinity.scale(spat_box3, -0.5,-0.5)
-    # get the one or more layers
     park_layer = data_source.ExecuteSQL(
         sql_park,
         # ogr.CreateGeometryFromWkt(to_wkt(spat_box))
@@ -30,14 +35,14 @@ def natural(item_scale,group_scale,data_path,styles,spat_zoom=0,center=None):
         # ogr.CreateGeometryFromWkt(to_wkt(spat_box))
     )
     f=water_layer.GetExtent()
-    # build out the one or more features
     features_park = Features(park_layer, item_scale, group_scale)
     features_water = Features(water_layer, item_scale, group_scale)
     # build the one SVGTag and return its output
     svg_tag = SVGTag(styles)
     svg_tag.prepend(spat_box2_scaled.svg())
-    svg_tag.append(spat_box3.svg(), 'extent-level-1')
-    svg_tag.append(spat_box4.svg(), 'extent-level-2')
-    svg_tag.append_shapes(features_water.scaled_group.geoms, features_water.data, 'water', False)
-    svg_tag.append_shapes(features_park.scaled_group.geoms, features_park.data, 'parks', False)
+    # svg_tag.append(spat_box3.svg(), 'extent-level-1')
+    # svg_tag.append(spat_box4.svg(), 'extent-level-2')
+    # svg_tag.append_shapes(features_water.scaled_group.geoms, features_water.data, 'water', False)
+    # svg_tag.append_shapes(features_park.scaled_group.geoms, features_park.data, 'parks', False)
+    svg_tag.append(s.svg())
     return svg_tag.render()
