@@ -15,11 +15,14 @@ path {
     fill: gray;
     stroke: #eee;
 }
+g.target_area path{
+    fill: red;
+}
 g.extent-level-1 path {
     fill: green
 }
 g.extent-level-2 path {
-    fill: rgba(255,2,2,0.5)
+    fill: rgba(0,0,255,0.5)
 }
 g.water text {
     font-size: 13px;
