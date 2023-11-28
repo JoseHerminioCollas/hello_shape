@@ -21,8 +21,9 @@ class SVGTag:
     def append(self, svg, class_name=''):
         self.doc += '<g class="{}">{}</g>'.format(class_name, svg)
 
-    def prepend(self, svg):
-        self.doc = svg + self.doc
+    def prepend(self, svg, class_name=''):
+        self.doc += svg + '<g class="{}">{}</g>'.format(class_name, svg)
+        # self.doc = svg + self.doc
 
     def set_style(self, style):
         self.style = style
