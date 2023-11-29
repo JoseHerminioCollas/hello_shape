@@ -4,6 +4,16 @@ from shapely import MultiPolygon, affinity, box, Point, from_geojson, is_valid, 
 from osgeo import ogr
 
 
+def extent_box(extent):
+    exmidx = extent[0] - ((extent[0] - extent[1]) / 2)
+    exmidy = extent[2] - ((extent[2] - extent[3]) / 2)
+    p = Point(exmidx + 0.0, exmidy + 0.04)
+    point_buff = p.buffer(0.2)
+    point_bounds = point_buff.bounds
+    sbox = box(point_bounds[0], point_bounds[1], point_bounds[2], point_bounds[3])
+    return sbox
+
+
 def natural_2(
         item_scale,
         group_scale,
@@ -18,20 +28,13 @@ def natural_2(
     layer = data_source.GetLayer()
     extent = layer.GetExtent()
     # extent = (-4.0699641, -3.2300143, 40.170042, 40.6499669)
-    exmidx = extent[0] - ((extent[0] - extent[1]) / 2)
-    exmidy = extent[2] - ((extent[2] - extent[3]) / 2)
-    # extent_center = Point(x, y)
-    # print('extent', extent, exmidx)
-    # point to geometry for SQL statement
-    p = Point(exmidx + 0.05, exmidy + 0.04)
-    point_buff = p.buffer(0.2)
-    point_bounds = point_buff.bounds
-    sbox = box(point_bounds[0], point_bounds[1], point_bounds[2], point_bounds[3])
+    box_a = extent_box(extent)
+    ogr_geo = ogr.CreateGeometryFromWkt(to_wkt(box_a))
     park_layer = data_source.ExecuteSQL(
         sql_park,
-        ogr.CreateGeometryFromWkt(to_wkt(sbox))
+        ogr_geo
     )
-    scale = 1000
+    scale = 500
     polys = []
     for f in park_layer:
         geo_json = f.ExportToJson()
@@ -39,7 +42,7 @@ def natural_2(
         if is_valid(fgj):
             polys.append(fgj)
     # set up the style here
-    polys.append(sbox)
+    polys.append(box_a)
     mp = MultiPolygon(polys)
     scaled_poly = affinity.scale(
         mp,
