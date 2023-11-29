@@ -32,27 +32,27 @@ def natural_2(
     # make the ogr_geo from the extent
     ogr_geo = ogr.CreateGeometryFromWkt(to_wkt(box_a))
     # make the ogr_geo from a point
-    p = Point(exmidx + 0.0, exmidy + 0.04)
-
+    p = Point(-4.0, 40.6)
+    point_buff = p.buffer(0.2)
+    point_bounds = point_buff.bounds
+    box_b = box(point_bounds[0], point_bounds[1], point_bounds[2], point_bounds[3])
+    ogr_geo_b = ogr.CreateGeometryFromWkt(to_wkt(box_b))
     park_layer = data_source.ExecuteSQL(
         sql_park,
-        ogr_geo
+        # ogr_geo_b
     )
     scale = 500
-    polys = []
+    polys = [point_buff, box_b]
     for f in park_layer:
         geo_json = f.ExportToJson()
         fgj = from_geojson(geo_json)
         if is_valid(fgj):
             polys.append(fgj)
-    # set up the style here
-    polys.append(box_a)
     mp = MultiPolygon(polys)
     scaled_poly = affinity.scale(
         mp,
         scale, -scale
     )
     svg_tag = SVGTag(styles)
-    # svg_tag.append(sbox.svg(), 'target_area')
     svg_tag.append(scaled_poly.svg(), 'a')
     return svg_tag.render()
