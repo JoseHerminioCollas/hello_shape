@@ -29,7 +29,11 @@ def natural_2(
     extent = layer.GetExtent()
     # extent = (-4.0699641, -3.2300143, 40.170042, 40.6499669)
     box_a = extent_box(extent)
+    # make the ogr_geo from the extent
     ogr_geo = ogr.CreateGeometryFromWkt(to_wkt(box_a))
+    # make the ogr_geo from a point
+    p = Point(exmidx + 0.0, exmidy + 0.04)
+
     park_layer = data_source.ExecuteSQL(
         sql_park,
         ogr_geo
