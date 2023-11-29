@@ -4,16 +4,6 @@ from shapely import MultiPolygon, affinity, box, Point, from_geojson, is_valid, 
 from osgeo import ogr
 
 
-def get_extent_box(extent):
-    exmidx = extent[0] - ((extent[0] - extent[1]) / 2)
-    exmidy = extent[2] - ((extent[2] - extent[3]) / 2)
-    p = Point(exmidx + 0.0, exmidy + 0.04)
-    point_buff = p.buffer(0.2)
-    point_bounds = point_buff.bounds
-    sbox = box(point_bounds[0], point_bounds[1], point_bounds[2], point_bounds[3])
-    return sbox
-
-
 def natural_2(
         item_scale,
         group_scale,
@@ -24,15 +14,12 @@ def natural_2(
         buffer=0.2,
         use_spat=True,
         view_spat_area=True,
-        view_extent=True,
 ):
     polys = []
     data_source = ogr.Open(data_path)
     layer = data_source.GetLayer()
     extent = layer.GetExtent()
-    extent_box = get_extent_box(extent)
-    # if view_extent:
-    # polys.append(extent_box)
+    # TODO if center not in extent throw error
     # make a Shapely box of the SPAT filter inputs: cx, cy, buffer
     p = Point(cx, cy)
     point_buff = p.buffer(buffer)
