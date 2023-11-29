@@ -20,7 +20,11 @@ def natural_2(
         data_path,
         styles,
         spatial_filter=None,
-        center=None
+        cx=None,
+        cy=None,
+        buffer=0.2,
+        view_spat_area=True,
+        use_spat=True,
 ):
     sql_park = ("SELECT * FROM natural where type='park' and name is not null limit {}"
                 .format(50000))
@@ -32,17 +36,22 @@ def natural_2(
     # make the ogr_geo from the extent
     ogr_geo = ogr.CreateGeometryFromWkt(to_wkt(box_a))
     # make the ogr_geo from a point
-    p = Point(-4.0, 40.6)
-    point_buff = p.buffer(0.2)
+    p = Point(cx, cy)
+    point_buff = p.buffer(buffer)
     point_bounds = point_buff.bounds
     box_b = box(point_bounds[0], point_bounds[1], point_bounds[2], point_bounds[3])
-    ogr_geo_b = ogr.CreateGeometryFromWkt(to_wkt(box_b))
+    ogr_geo_b = None
+    if use_spat:
+        ogr_geo_b = ogr.CreateGeometryFromWkt(to_wkt(box_b))
+
     park_layer = data_source.ExecuteSQL(
         sql_park,
-        # ogr_geo_b
+        ogr_geo_b
     )
-    scale = 500
-    polys = [point_buff, box_b]
+    scale = group_scale
+    polys = []
+    if view_spat_area:
+        polys.append(box_b)
     for f in park_layer:
         geo_json = f.ExportToJson()
         fgj = from_geojson(geo_json)
