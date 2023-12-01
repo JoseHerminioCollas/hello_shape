@@ -1,7 +1,7 @@
 import time
 from madrid.natural_2 import natural_2
 
-item_scale = 2
+item_scale = 1
 group_scale = 500
 data_path = 'data/Madrid-shp/shape/natural.shp'
 file = open('madrid/style.css', 'r', encoding='utf-8')
