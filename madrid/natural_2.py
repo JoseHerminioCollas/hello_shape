@@ -40,7 +40,7 @@ def natural_2(
     # populate polygons
     for f in park_layer:
         geo_json = f.ExportToJson()
-        fgj = from_geojson(geo_json)
+        fgj = affinity.scale(from_geojson(geo_json), item_scale, item_scale)
         if is_valid(fgj):
             polys.append(fgj)
     mp = MultiPolygon(polys)
