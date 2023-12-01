@@ -1,5 +1,5 @@
 from SVGTag import SVGTag
-from shapely import MultiPolygon, affinity, box, Point, from_geojson, is_valid, to_wkt
+from shapely import MultiPolygon, Polygon, affinity, box, Point, from_geojson, is_valid, to_wkt
 from osgeo import ogr
 from point_buff_to_box import point_buff_to_box
 
@@ -19,15 +19,17 @@ def natural_2(
     data_source = ogr.Open(data_path)
     layer = data_source.GetLayer()
     extent = layer.GetExtent()
-    # TODO if center not in extent throw error
+    extent_box = Polygon.from_bounds(extent[0], extent[1], extent[2], extent[3])
     user_spat_filter = point_buff_to_box(cx, cy, buffer)
-    geo_spat_box = user_spat_filter
+    # if the users' selected area is not in the extent the return False
+    if not user_spat_filter.overlaps(extent_box):
+        return False
     if view_spat_area:
-        polys.append(geo_spat_box)
+        polys.append(user_spat_filter)
     # make the geospatial filter if requested
     geospatial_filter = None
     if use_spat:
-        geospatial_filter = ogr.CreateGeometryFromWkt(to_wkt(geo_spat_box))
+        geospatial_filter = ogr.CreateGeometryFromWkt(to_wkt(user_spat_filter))
     # get the layer
     sql_park = ("SELECT * FROM natural where type='park' and name is not null limit {}"
                 .format(50000))
