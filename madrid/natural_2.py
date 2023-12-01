@@ -1,7 +1,7 @@
-from Features import Features
 from SVGTag import SVGTag
 from shapely import MultiPolygon, affinity, box, Point, from_geojson, is_valid, to_wkt
 from osgeo import ogr
+from point_buff_to_box import point_buff_to_box
 
 
 def natural_2(
@@ -20,11 +20,8 @@ def natural_2(
     layer = data_source.GetLayer()
     extent = layer.GetExtent()
     # TODO if center not in extent throw error
-    # make a Shapely box of the SPAT filter inputs: cx, cy, buffer
-    p = Point(cx, cy)
-    point_buff = p.buffer(buffer)
-    point_bounds = point_buff.bounds
-    geo_spat_box = box(point_bounds[0], point_bounds[1], point_bounds[2], point_bounds[3])
+    user_spat_filter = point_buff_to_box(cx, cy, buffer)
+    geo_spat_box = user_spat_filter
     if view_spat_area:
         polys.append(geo_spat_box)
     # make the geospatial filter if requested
