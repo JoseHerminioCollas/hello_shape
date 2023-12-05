@@ -25,10 +25,15 @@ jobs:
         python-version: "3.10"
     - name: Install dependencies
       run: |
+        sudo add-apt-repository ppa:ubuntugis/ppa && sudo apt-get update
+        sudo apt-get update
         sudo apt-get install gdal-bin
+        sudo apt-get install libgdal-dev
+        export CPLUS_INCLUDE_PATH=/usr/include/gdal
+        export C_INCLUDE_PATH=/usr/include/gdal
         python -m pip install --upgrade pip
-        pip install flake8 pytest GDAL
-        pip install shapely
+        pip install flake8 pytest numpy
+        pip install shapely GDAL
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
