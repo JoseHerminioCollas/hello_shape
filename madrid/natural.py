@@ -1,33 +1,54 @@
-from Features import Features
 from SVGTag import SVGTag
-from shapely import to_wkt, affinity, box
+from shapely import MultiPolygon, Polygon, affinity, box, Point, from_geojson, is_valid, to_wkt
 from osgeo import ogr
+from point_buff_to_box import point_buff_to_box
 
-def natural(item_scale,group_scale,data_path,styles):
-    spat_box = box(-3.76, 40.36, -3.72, 40.4)
-    spat_box_scaled = affinity.scale(spat_box, group_scale, group_scale)
-    sql_park = ("SELECT * FROM natural where type='park' and name is not null limit {}"
-        .format(10000))
-    sql_water = ("SELECT * FROM natural where type='water' and name is not null limit {}"
-        .format(3000))
-    # get the data source
+
+def natural(
+        item_scale,
+        group_scale,
+        data_path,
+        styles,
+        cx=None,
+        cy=None,
+        buffer=0.2,
+        use_spat=True,
+        view_spat_area=True,
+):
+    polys = []
     data_source = ogr.Open(data_path)
-    # get the one or more layers
+    layer = data_source.GetLayer()
+    extent = layer.GetExtent()
+    extent_box = Polygon.from_bounds(extent[0], extent[1], extent[2], extent[3])
+    user_spat_filter = point_buff_to_box(cx, cy, buffer)
+    # if the users' selected area is not in the extent the return False
+    if not user_spat_filter.overlaps(extent_box):
+        return False
+    if view_spat_area:
+        polys.append(user_spat_filter)
+    # make the geospatial filter if requested
+    geospatial_filter = None
+    if use_spat:
+        geospatial_filter = ogr.CreateGeometryFromWkt(to_wkt(user_spat_filter))
+    # get the layer
+    sql_park = ("SELECT * FROM natural where type='park' and name is not null limit {}"
+                .format(50000))
     park_layer = data_source.ExecuteSQL(
         sql_park,
-        ogr.CreateGeometryFromWkt(to_wkt(spat_box))
+        geospatial_filter
     )
-    water_layer = data_source.ExecuteSQL(
-        sql_water,
-        ogr.CreateGeometryFromWkt(to_wkt(spat_box))
+    # populate polygons
+    for f in park_layer:
+        geo_json = f.ExportToJson()
+        fgj = affinity.scale(from_geojson(geo_json), item_scale, item_scale)
+        if is_valid(fgj):
+            polys.append(fgj)
+    mp = MultiPolygon(polys)
+    scaled_poly = affinity.scale(
+        mp,
+        group_scale, -group_scale
     )
-    # build out the one or more features
-    features_park = Features(park_layer, item_scale, group_scale)
-    features_water = Features(water_layer, item_scale, group_scale)
-    # build the one SVGTag and return its output
+    # set the SVGTag object
     svg_tag = SVGTag(styles)
-    svg_tag.append_shapes(features_water.scaled_group.geoms, features_water.data, 'water', True)
-    svg_tag.append_shapes(features_park.scaled_group.geoms, features_park.data, 'parks', True)
-    svg_tag.prepend(spat_box_scaled.svg())
-
+    svg_tag.append(scaled_poly.svg(), 'a')
     return svg_tag.render()
