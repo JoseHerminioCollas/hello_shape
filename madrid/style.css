@@ -12,8 +12,20 @@ text {
     text-anchor: middle
 }
 path {
-    fill: #ccc;
+    fill: gray;
     stroke: #eee;
+}
+g.a path {
+    fill: rgba(0,0,255,0.1);
+}
+g.target_area path{
+    fill: red;
+}
+g.extent-level-1 path {
+    fill: green
+}
+g.extent-level-2 path {
+    fill: rgba(0,0,255,0.5)
 }
 g.water text {
     font-size: 13px;

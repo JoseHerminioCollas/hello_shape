@@ -9,6 +9,6 @@ style_format="${style//[$'\t\r\n']}"
 s="from $1 import $2;"
 s+="svg = $2($3,$4,'$5','$style_format');";
 s+="print(svg)"
-echo $s
+#echo $s
 python3 -c "${s}" > $7
 
